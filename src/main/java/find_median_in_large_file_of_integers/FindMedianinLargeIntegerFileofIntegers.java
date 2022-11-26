@@ -8,6 +8,11 @@ public class FindMedianinLargeIntegerFileofIntegers {
     /*
         Find Median in Large Integer File of Integers
         AirBnB Interview Question
+
+        Possible problem:
+        Find the median of a large file with integers. CANNOT access number by index
+        can only access numbers sequentially.
+
      */
     public class Solution {
         private long search(int[] nums, int k, long left, long right) {
@@ -18,6 +23,10 @@ public class FindMedianinLargeIntegerFileofIntegers {
             long res = left;
             long guess = left + (right - left) / 2;
             int count = 0;
+            //From left and right boundaries, guess the median value in binary search
+
+            //Traverse the file and count how many numbers smaller than guess
+
             for (int num : nums) {
                 if (num <= guess) {
                     count++;
@@ -39,7 +48,7 @@ public class FindMedianinLargeIntegerFileofIntegers {
             for (int num : nums) {
                 len++;
             }
-
+            //Disucss median in even or odd count of mumbers
             if (len % 2 == 1) {
                 return (double) search(nums, len / 2 + 1, Integer.MIN_VALUE, Integer.MAX_VALUE);
             } else {

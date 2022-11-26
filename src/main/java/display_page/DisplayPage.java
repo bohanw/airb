@@ -9,27 +9,63 @@ import static org.junit.Assert.*;
 public class DisplayPage {
     /*
         Display Page - LinkedList + HashSet
+
+
+        You’re given an array of CSV strings representing search results. Results are sorted by a score initially. A
+        given host may have several listings that show up in these results. Suppose we want to show 12 results
+        per page, but we don’t want the same host to dominate the results.
+
+        Write a function that will reorder the list so that a host shows up at most once on a page if possible,
+        but otherwise preserves the ordering.
+        Your program should return the new array and print out the results in blocks representing the pages.
+
+        Input: An array of csv strings, with sort score number of results per page. example:
+
+        "host_id,listing_id,score,city"
+        "1,         28,  300.1,   San Francisco",
+        "1,28,300.1,SanFrancisco",
+        "4,5,209.1,SanFrancisco",
+        "20,7,208.1,SanFrancisco",
+        "23,8,207.1,SanFrancisco",
+        "16,10,206.1,Oakland",
+        "1,16,205.1,SanFrancisco",
+        "6,29,204.1,SanFrancisco",
+        "7,20,203.1,SanFrancisco",
+        "8,21,202.1,SanFrancisco",
+        "2,18,201.1,SanFrancisco",
+        "2,30,200.1,SanFrancisco",
         AirBnB Interview Question
      */
     public class Solution {
         public List<String> displayPages(List<String> input, int pageSize) {
+            //Result list
             List<String> res = new ArrayList<>();
+
             if (input == null || input.size() == 0) {
                 return res;
             }
-
+            //VISITED: visited contains hostIds
+            //If there is a duplicated for current page
             List<String> visited = new ArrayList<>();
+            //Iterator for the input CSV list
+
             Iterator<String> iter = input.iterator();
             boolean reachEnd = false;
+
             while (iter.hasNext()) {
                 String curr = iter.next();
                 String hostId = curr.split(",")[0];
+
+                //(1) Check the current host ID is NOt included,
+
                 if (!visited.contains(hostId) || reachEnd) {
                     res.add(curr);
                     visited.add(hostId);
                     iter.remove();
                 }
 
+                //If number of cities have occupied the current page
+                //clear viited
                 if (visited.size() == pageSize) {
                     visited.clear();
                     reachEnd = false;
@@ -39,6 +75,7 @@ public class DisplayPage {
                     iter = input.iterator();
                 }
 
+                //Reaching the end of the input lists
                 if (!iter.hasNext()) {
                     iter = input.iterator();
                     reachEnd = true;

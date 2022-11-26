@@ -8,6 +8,12 @@ public class PalindromePairs {
     /*
         Palindrome Pairs - HashMap
         AirBnB Interview Question
+
+        Refer to the actual input output, for Trie solution
+https://leetcode.com/problems/palindrome-pairs/description/
+
+More intuitive approach:https://leetcode.com/problems/palindrome-pairs/submissions/822098791/
+
      */
     public class Solution {
         private boolean isPalindrome(String s) {
@@ -63,7 +69,6 @@ public class PalindromePairs {
                 if (isPalindrome(word, 0, i)) {
                     root.list.add(index);
                 }
-
                 root = root.next[word.charAt(i) - 'a'];
             }
 

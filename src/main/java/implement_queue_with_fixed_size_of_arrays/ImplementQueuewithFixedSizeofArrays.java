@@ -10,9 +10,66 @@ public class ImplementQueuewithFixedSizeofArrays {
     /*
         Implement Queue with Fixed Size of Arrays
         AirBnB Interview Question
+
+        Use Array :
+        public class QueueWithFixedArray {
+    private int fixedSize;
+    private int cnt;
+    private int head;
+    private int tail;
+    private Object[] headArr;
+    private Object[] tailArr;
+
+    public QueueWithFixedArray(int fixedSize) {
+      this.fixedSize = fixedSize;
+      this.cnt = 0;
+      this.head = 0;
+      this.tail = 0;
+      this.headArr = new Object[fixedSize];
+      this.tailArr = headArr;
+    }
+
+    public void offer(int num) {
+      if (tail == fixedSize - 1) {
+        Object[] newArr = new Object[fixedSize];
+        newArr[0] = num;
+        tailArr[fixedSize - 1] = newArr;
+        tailArr = newArr;
+        tail = 0;
+      } else {
+        tailArr[tail] = num;
+      }
+      tail++;
+      cnt++;
+    }
+
+    public int poll() {
+      if (cnt == 0) return -1;
+      int num = (int) headArr[head];
+      head++;
+      cnt--;
+
+      if (head == fixedSize - 1) {
+        headArr = (Object[]) headArr[fixedSize - 1];
+        head = 0;
+      }
+      return num;
+    }
+
+    public int size() {
+      return cnt;
+    }
+  }
+
+  Thoughts:
+  Usw fixedSize list/array, wehre the last index of each fixed size list points to
+  the next fixed-size list
+  maintain head/tail pointers
+
      */
+
     public class QueueWithFixedArray {
-        private int fixedSize;
+        private int fixedSize; //Given size of the array
 
         private int count;
         private int head;
@@ -74,7 +131,7 @@ public class ImplementQueuewithFixedSizeofArrays {
             queue.offer(1);
             queue.offer(2);
             int res = queue.poll();
-            assertEquals(1, res);
+            assertEquals(2, res);
             queue.offer(3);
             queue.offer(4);
             queue.offer(5);
@@ -85,6 +142,7 @@ public class ImplementQueuewithFixedSizeofArrays {
             res = queue.poll();
             assertEquals(2, res);
             res = queue.poll();
+            System.out.println("Bohan :  res "  + res);
             assertEquals(3, res);
         }
     }
